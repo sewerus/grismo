@@ -9,7 +9,7 @@ Graph Isomorphism Problem Solver by Seweryn Panek Wrocław University of Science
 	* [Setup](#setup)
 	* [Usage](#usage)
 * [Project](#project)
-	* [Intoruction](#introduction)
+	* [Introduction](#introduction)
 	* [Research problem](#research-problem)
 	* [Description of the methods](#description-of-the-methods)
 	* [Research plan and simulation program](#research-plan-and-simulation-program)
@@ -18,8 +18,9 @@ Graph Isomorphism Problem Solver by Seweryn Panek Wrocław University of Science
 	* [Summary](#summary)
 	* [References](#references)
 
-## Implemented algorithms
+To read this description with math expressions, please, see README.ipynb. Github doesn't render LATEX code in README.md on the projects' main pages.
 
+## Implemented algorithms
 -   Brute method,
 -   Method based on BFS algorithm,
 -   Method based on DFS algorithm,
@@ -27,17 +28,14 @@ Graph Isomorphism Problem Solver by Seweryn Panek Wrocław University of Science
 -   Method based on graph spectrum comparison.
 
 ## Types of tests
-
 -   single test for given graphs,
 -   many tests for an increasing number of vertices,
 -   many tests for an increasing number of edges.
 
 ## Setup
-
 Clone this repo to your desktop and install all the dependencies.
 
 ## Usage
-
 Just run command `python main.py` to run an application. Then choose in the right column type of test you want to conduct and it's parameters. If you want start a symulation click button "Przeprowadź badanie".
 
 # Project
@@ -48,11 +46,11 @@ The aim of the project is to study already known and new created methods to solv
 
 A graph is a mathematical structure consisting of a set of vertices and a set of edges having ends at two selected vertices. It is used to present and describe relationships between objects.
 
-A graph can be presented by set of vertices $V$ and set of edges $E$, where $E = \{\{x, y\}: x, y \in V\}$. Each edge is a pair of vertices which are neighbours. In labeled graph all vertices have unique number.
+A graph can be presented by set of vertices *V* and set of edges *E*, where *E = {{x, y}: x, y in V}*. Each edge is a pair of vertices which are neighbours. In labeled graph all vertices have unique number.
 
-In this article all discussed graphs are simple, connected and symmetric. It means, that there are no multiple edges and no own loops, between any two vertices there is a path and if vertex $v_1$ is a neighbour of vertex $v_2$, then vertex $v_2$ is the neighbour of vertex $v_1$.
+In this article all discussed graphs are simple, connected and symmetric. It means, that there are no multiple edges and no own loops, between any two vertices there is a path and if vertex *v_1* is a neighbour of vertex *v_2*, then vertex *v_2* is the neighbour of vertex *v_1*.
 
-A graph can be represented by an adjacency matrix and an adjacency list. Adjacency matrices for all discussed graphs are square (0, 1)-matrices with zeros on diagonals. If in $i$-row and $j$ column of an adjacency matrix there is 1, then vertices $v_i$ and $v_j$ are neighbours. If there is 0, then these vertices are not neighbours. An adjacency list represent a graph by a list of neighbours' labels for each vertex.
+A graph can be represented by an adjacency matrix and an adjacency list. Adjacency matrices for all discussed graphs are square (0, 1)-matrices with zeros on diagonals. If in *i*-row and *j* column of an adjacency matrix there is 1, then vertices *v_i* and *v_j* are neighbours. If there is 0, then these vertices are not neighbours. An adjacency list represent a graph by a list of neighbours' labels for each vertex.
 
 ![Example of a graph with 6 vertices.](./readme_images/graph_1.png)
 
@@ -64,7 +62,7 @@ A graph can be represented by an adjacency matrix and an adjacency list. Adjacen
 
 There is an isomorphism between two graphs when the vertices of one of them can be relabeled in such a way that the vertices in both graphs have exactly the same neighbors. An example of two isomorphic graphs is shown in Fig. below, where each vertex is given a corresponding label and in both graphs each vertex has exactly the same neighbors.
 
-Research whether two graphs are isomorphic is the problem of isomorphism resolution. Graph isomorphism preserves all graph properties, for example: number of vertices, number of edges, and consistency. Therefore, isomorphic graphs are usually identified. In this paper two examined graphs will be called "graph $A$" and "graph $B$".
+Research whether two graphs are isomorphic is the problem of isomorphism resolution. Graph isomorphism preserves all graph properties, for example: number of vertices, number of edges, and consistency. Therefore, isomorphic graphs are usually identified. In this paper two examined graphs will be called "graph *A*" and "graph *B*".
 
 ![Example of two isomorphic graphs.](./readme_images/2_isomorphism.png)
 
@@ -72,19 +70,18 @@ Solving this problem has been used in chemistry, comparing the structure of mole
 
 The problem of isomorphism resolution of two graphs belongs to the NP class, but has not yet been shown to be NP-complete. On the other hand, there are no known deterministic, probabilistic or quantum polynomial algorithms solving this problem. It is also not known whether the problem belongs to the co-NP class (complementary complexity class for NP decision problems).
 
-
 ## Description of the methods
 
 This chapter describes 5 methods for solving the problem of graph isomorphism, which will be investigated later in this work.
 
 ### Brutal Method
 
-In this method, for the graph $B$, all possible other graphs resulting from the change of the order of its vertices are generated.
+In this method, for the graph *B*, all possible other graphs resulting from the change of the order of its vertices are generated.
 
-For $n$ vertices there is $n!$ possible ways to arrange them in order. For each graph resulting from the rearrangements of the vertices of the graph $B$, a comparison is made with the graph $A$ by comparing all neighbor relations in the adjacency matrix. The adjacency matrix is a square matrix with dimensions $n \times n$, so comparing two matrices has a square complexity.
-Hence the computational complexity of the whole method is $O (n! \cdot n^2)$.
+For *n* vertices there is *n!* possible ways to arrange them in order. For each graph resulting from the rearrangements of the vertices of the graph *B*, a comparison is made with the graph *A* by comparing all neighbor relations in the adjacency matrix. The adjacency matrix is a square matrix with dimensions *n \times n*, so comparing two matrices has a square complexity.
+Hence the computational complexity of the whole method is *O (n! \cdot n^2)*.
 
-The creation of each vertex permutation is done vertex by vertex, i.e. the first vertex from the $n$ unused vertices is drawn first, then the second from the $n-1$ unused vertices until all vertices are used.
+The creation of each vertex permutation is done vertex by vertex, i.e. the first vertex from the *n* unused vertices is drawn first, then the second from the *n-1* unused vertices until all vertices are used.
 
 After each drawn vertex, a subgraph of the original graph is obtained. For example: after drawing only 5 vertices out of 10, we get a subgraph consisting of only 5 vertices.
 
@@ -92,13 +89,13 @@ To improve this method, algorithm compares the subgraphs at each stage. Thanks t
 
 ### Method that uses BFS algorithm
 
-Breadth-first search (BFS) is one of the graph searching algorithms. The graph is traversed from a given vertex $s$ and consists in visiting all vertices (neighbors) reachable from it. The result of the algorithm is a search tree rooted in $s$, containing all the nodes reachable from $s$.
+Breadth-first search (BFS) is one of the graph searching algorithms. The graph is traversed from a given vertex *s* and consists in visiting all vertices (neighbors) reachable from it. The result of the algorithm is a search tree rooted in *s*, containing all the nodes reachable from *s*.
 
-This algorithm was used to create the isomorphism check method, introducing the concept of "graph transition stage". In the first step, a subgraph is created from the base vertex $s$ and all its neighbors. In the second stage, the subgraph is supplemented with vertices' neighbors from the previous stage. The successive stages of the subgraph transition enlarge the subgraph until the original graph is obtained (visiting all vertices). An example of traversing the graph using the BFS algorithm and new vertices at each stage is presented in Fig. below, where the vertex $s$ is the vertex labeled as 1.
+This algorithm was used to create the isomorphism check method, introducing the concept of "graph transition stage". In the first step, a subgraph is created from the base vertex *s* and all its neighbors. In the second stage, the subgraph is supplemented with vertices' neighbors from the previous stage. The successive stages of the subgraph transition enlarge the subgraph until the original graph is obtained (visiting all vertices). An example of traversing the graph using the BFS algorithm and new vertices at each stage is presented in Fig. below, where the vertex *s* is the vertex labeled as 1.
 
 ![Example of graph transition stages.](./readme_images/3_bfs_ex.png)
 
-While the brute force method examined all possible vertex permutations of the graph $B$ to see if any of them would produce an identical graph to the graph $A$, the BFS graph search method limits the number of permutations. If the subgraph obtained at the $i$-th transition stage of the graph $B$ is isomorphic to the graph obtained at the $i$-th transition stage of the graph $A$, in order to prove the isomorphism in the next stage, it is enough to check all possible permutations of new vertices in the next stage.
+While the brute force method examined all possible vertex permutations of the graph *B* to see if any of them would produce an identical graph to the graph *A*, the BFS graph search method limits the number of permutations. If the subgraph obtained at the *i*-th transition stage of the graph *B* is isomorphic to the graph obtained at the *i*-th transition stage of the graph *A*, in order to prove the isomorphism in the next stage, it is enough to check all possible permutations of new vertices in the next stage.
 
 This method is not effective for inconsistent graphs because then the BFS search method does not find all vertices.
 
@@ -109,7 +106,7 @@ A depth-first search (DFS) is another graph searching algorithm. The traversing 
 Using this algorithm you can get a set of all possible paths coming from any vertex. For example, Fig. below presents two graphs with all their paths.
 
 ![Representation of sample graphs using a list of edges.](./readme_images/3_dfv_example.png)
-Research isomorphism can be carried out by trying to assign the edges of the graph $B$ representing the edges of the graph representing the graph $A$. At the beginning of this method, an edges list is created for the graph $A$ from vertex number 1. Then, for graph $B$, lists of edges coming from each vertex are created. Edges are grouped according to their length. If for a given initial vertex of graph $B$ the number of groups and the number of their edges do not correspond to the representation of graph $A$, then such a vertex is immediately rejected.
+Research isomorphism can be carried out by trying to assign the edges of the graph *B* representing the edges of the graph representing the graph *A*. At the beginning of this method, an edges list is created for the graph *A* from vertex number 1. Then, for graph *B*, lists of edges coming from each vertex are created. Edges are grouped according to their length. If for a given initial vertex of graph *B* the number of groups and the number of their edges do not correspond to the representation of graph *A*, then such a vertex is immediately rejected.
 
 The graphs in Fig. are represented by 3 groups of edges with the lengths of 5 vertices, 4 vertices and 3 vertices consecutively. The first group has two edges, the others have one edge.
 
@@ -123,55 +120,11 @@ If the multisets of colors of both graphs are different, then the method determi
 
 Therefore, coloring and creating multi-color sets can be repeated in circles. If the obtained multisets of colors are identical after the duplications, then the result confirming the isomorphism of the examined graphs is returned.
 
-It is then the Weisfeiler-Lehman's  algorithm of the $k$ dimension. Note that it can state isomorphism when in fact the two graphs are not isomorphic. It has been proved, however, that this method correctly distinguishes all planar graphs for $k = 3$.
+It is then the Weisfeiler-Lehman's  algorithm of the *k* dimension. Note that it can state isomorphism when in fact the two graphs are not isomorphic. It has been proved, however, that this method correctly distinguishes all planar graphs for *k = 3*.
 
 ### The method of comparing the spectrum
 
-Let $X$ be a graph. The eigenvalues and eigenvectors of the adjacency matrix of the graph $X$ are called the eigenvalues and eigenvectors of the graph $X$, respectively. By the $Spec X$, spectrum of the graph $X$, we mean the set of its eigenvalues together with information about their multiplicity. The spectrum of graph $X$ is written in the form of a matrix, the first row of which contains the roots of the  characteristic polynomial of the graph $X$, and the second row of their multiplicities, respectively.
-For example, the calculation of the spectrum of a full graph with 4 vertices will be presented.
-
-The adjacency matrix of this graph is:
-
-$$
-A =
-\left[ \begin{array}{cccc}
-0 & 1 & 1 & 1 \\
-1 & 0 & 1 & 1 \\
-1 & 1 & 0 & 1 \\
-1 & 1 & 1 & 0
-\end{array} \right]
-$$
-
-The eigenvalues of the graph can be calculated by solving the equation:
-
-$$
-\det (\lambda I - A I) = 0
-$$
-$$
-\left| \begin{array}{cccc}
-\lambda & -1 & -1 & -1 \\
--1 & \lambda & -1 & -1 \\
--1 & -1 & \lambda & -1 \\
--1 & -1 & -1 & \lambda
-\end{array} \right| = 0
-$$
-$$
-\lambda^4 - 6\lambda^2 - 8\lambda - 3 = 0
-$$
-$$
-(\lambda - 3)(\lambda + 1)^3 = 0
-$$
-$$
-\lambda_1 = 3, \lambda_2 = -1, \lambda_3 = -1, \lambda_4 = -1
-$$
-$$
-Spec X = \left[ \begin{array}{cc}
--1 & 3 \\
-3 & 1
-\end{array} \right]
-$$
-
-The number 3 is one-time eigenvalue of the examined graph, and the number -1 is three times the eigenvalue.
+Let *X* be a graph. The eigenvalues and eigenvectors of the adjacency matrix of the graph *X* are called the eigenvalues and eigenvectors of the graph *X*, respectively. By the *Spec X*, spectrum of the graph *X*, we mean the set of its eigenvalues together with information about their multiplicity. The spectrum of graph *X* is written in the form of a matrix, the first row of which contains the roots of the  characteristic polynomial of the graph *X*, and the second row of their multiplicities, respectively.
 
 In this method, the spectrums of both examined graphs are calculated. The eigenvalues in the spectrum are sorted. If the obtained matrices representing the spectrums are identical, the result of this method will be confirmation of the isomorphism of the examined graphs.
 
@@ -307,7 +260,6 @@ The worst method both in terms of computation time and reliability turned out to
 [2]: Zając K., "Algorytmy kombinatoryczne i graficzne w spektralnej klasyfikacji skończonych bigrafów oraz sieciowych systemów pierwiastków" (doctoral dissertation)
 
 [3]: Bartoszuk M., "System do oceny podobieństwa kodów źródłowych w językach funkcyjnych oparty na metodach uczenia maszynowego i agregacji danych" (doctoral dissertation)
-
 
 [4]: Kowalik Ł., "Problem izomorfizmu grafów", http://www.deltami.edu.pl/temat/informatyka/algorytmy/2018/11/26/Problem_izomorfizmu_grafow/, accessed at 2020-03-20.
 
